@@ -16,7 +16,7 @@ input.addEventListener("change", function(event) {
 
     // Display the log file with the keywords highlighted in the appropriate class
     let logsElement = document.getElementById("logs");
-    logsElement.innerHTML = logText2;
+    logsElement.innerHTML = logText;
   };
   reader.readAsText(file);
 });
