@@ -16,7 +16,6 @@ input.addEventListener("change", function(event) {
 
     // Display the log file with the keywords highlighted in the appropriate class
     let logsElement = document.getElementById("logs");
-    let logText2 = logText.split("\n").join("<br>");
     logsElement.innerHTML = logText2;
   };
   reader.readAsText(file);
@@ -24,14 +23,12 @@ input.addEventListener("change", function(event) {
 
 function highlightKeywords(logText, keywords, className) {
   // Iterate through the list of keywords
-for (let i = 0; i < keywords.length; i++) {
+  for (let i = 0; i < keywords.length; i++) {
     let keyword = keywords[i];
-    // Check if the keyword is present in the log file
-    if (logText.indexOf(keyword) !== -1) {
-      // If present, replace the keyword with a span element with the className class
-      let span = `<span class="${className}">${keyword}</span>`;
-      logText = logText.replace(keyword, span);
-    }
+    // Create a regular expression with the keyword and the global flag
+    let regex = new RegExp(keyword, "g");
+    // Replace all occurrences of the keyword with a span element with the className class
+    logText = logText.replace(regex, `<span class="${className}">${keyword}</span>`);
   }
   return logText;
 }
