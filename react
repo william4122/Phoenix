@@ -1,0 +1,35 @@
+import React, { useState } from "react";
+import { useDropzone } from "react-dropzone";
+
+const LogUploader = () => {
+  const [logText, setLogText] = useState("");
+
+  const onDrop = acceptedFiles => {
+    const file = acceptedFiles[0];
+    const reader = new FileReader();
+    reader.onabort = () => console.log("file reading was aborted");
+    reader.onerror = () => console.log("file reading has failed");
+    reader.onload = () => {
+        // The file's text will be printed here
+        const logFile = reader.result;
+        // Apply the highlighting logic function
+        let highlightedLog = highlightKeywords(logFile, logDangerKeywords, "logdanger");
+        highlightedLog = highlightKeywords(highlightedLog, logGoodKeywords, "loggood");
+        highlightedLog = highlightKeywords(highlightedLog, logInfoKeywords, "loginfo");
+        setLogText(highlightedLog);
+    };
+    reader.readAsText(file);
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+  return (
+    <div {...getRootProps()}>
+      <input {...getInputProps()} />
+      <p>Drag 'n' drop a log file here, or click to select a file</p>
+      <div dangerouslySetInnerHTML={{ __html: logText }} />
+    </div>
+  );
+};
+
+export default LogUploader;
