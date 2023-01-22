@@ -1,0 +1,14 @@
+/* CSS for logdanger class */
+.logdanger {
+    color: red;
+}
+
+/* CSS for loggood class */
+.loggood {
+    color: green;
+}
+
+/* CSS for loginfo class */
+.loginfo {
+    color: yellow;
+}
