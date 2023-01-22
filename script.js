@@ -17,14 +17,14 @@ input.addEventListener("change", function(event) {
     // Display the log file with the keywords highlighted in the appropriate class
     let logsElement = document.getElementById("logs");
     let logText2 = logText.split("\n").join("<br>");
-    logsElement.innerHTML = logText;
+    logsElement.innerHTML = logText2;
   };
   reader.readAsText(file);
 });
 
 function highlightKeywords(logText, keywords, className) {
   // Iterate through the list of keywords
-  for (let i = 0; i < keywords.length; i++) {
+for (let i = 0; i < keywords.length; i++) {
     let keyword = keywords[i];
     // Check if the keyword is present in the log file
     if (logText.indexOf(keyword) !== -1) {
