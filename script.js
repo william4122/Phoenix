@@ -5,9 +5,9 @@ input.addEventListener("change", function(event) {
   reader.onload = function(event) {
     let logText = event.target.result;
     // Create a list of keywords for each class
-    let logDangerKeywords = ["error", "danger", "fail"];
-    let logGoodKeywords = ["success", "good", "completed"];
-    let logInfoKeywords = ["info", "notification", "status"];
+    let logDangerKeywords = ["ERR", "Could not fetch jobs: Invalid server response: 404", "fail"];
+    let logGoodKeywords = ["success", "Results sent, scan is complete", "completed"];
+    let logInfoKeywords = ["[INF", "Waiting for remote API to approve upload", "status"];
 
     // Apply the highlightKeywords function to each keyword list
     logText = highlightKeywords(logText, logDangerKeywords, "logdanger");
@@ -16,6 +16,7 @@ input.addEventListener("change", function(event) {
 
     // Display the log file with the keywords highlighted in the appropriate class
     let logsElement = document.getElementById("logs");
+    let logText = logText.split("\n").join("<br>");
     logsElement.innerHTML = logText;
   };
   reader.readAsText(file);
