@@ -7,7 +7,7 @@ input.addEventListener("change", function(event) {
     // Create a list of keywords for each class
     let logDangerKeywords = ["ERR", "Could not fetch jobs: Invalid server response: 404", "fail"];
     let logGoodKeywords = ["success", "Results sent, scan is complete", "completed"];
-    let logInfoKeywords = ["[INF", "Waiting for remote API to approve upload", "status"];
+    let logInfoKeywords = ["INF", "Waiting for remote API to approve upload", "status"];
 
     // Apply the highlightKeywords function to each keyword list
     logText = highlightKeywords(logText, logDangerKeywords, "logdanger");
