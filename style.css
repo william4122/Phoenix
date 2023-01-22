@@ -12,3 +12,6 @@
 .loginfo {
     color: yellow;
 }
+.log-container {
+  white-space: pre-wrap;
+}
