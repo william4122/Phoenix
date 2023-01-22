@@ -16,7 +16,7 @@ input.addEventListener("change", function(event) {
 
     // Display the log file with the keywords highlighted in the appropriate class
     let logsElement = document.getElementById("logs");
-    let logText = logText.split("\n").join("<br>");
+    let logText2 = logText.split("\n").join("<br>");
     logsElement.innerHTML = logText;
   };
   reader.readAsText(file);
