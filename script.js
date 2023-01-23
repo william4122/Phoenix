@@ -5,7 +5,7 @@ input.addEventListener("change", function(event) {
   reader.onload = function(event) {
     let logText = event.target.result;
     // Create a list of keywords for each class
-    let logDangerKeywords = ["ERR", "Could not fetch jobs: Invalid server response: 404", "fail", "Service stop signal received.", "Cannot save RTS data: unable to open database file", "Received stop signal from service controller", Cannot finish fetching user accounts:"];
+    let logDangerKeywords = ["ERR", "Could not fetch jobs: Invalid server response: 404", "fail", "Service stop signal received.", "Cannot save RTS data: unable to open database file", "Received stop signal from service controller", "Cannot finish fetching user accounts:"];
     let logGoodKeywords = ["success", "Results sent, scan is complete", "completed", "Agent has started", "Found matches!", "Yara scan completed." ];
     let logInfoKeywords = ["INF", "Waiting for remote API to approve upload", "status", "Starting as windows service"];
 
