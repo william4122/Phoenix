@@ -17,6 +17,6 @@
   white-space: pre-wrap;
 }
 /Can I have a gray background please
-body {
+.logalizer-bg {
   background-color: #gray;
 }
