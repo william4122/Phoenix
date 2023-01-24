@@ -11,7 +11,12 @@
 /* CSS for loginfo class */
 .loginfo {
     color: blue;
+/respect the spacing of the log file please
 }
 .log-container {
   white-space: pre-wrap;
+}
+/Can I have a gray background please
+body {
+  background-color: #gray;
 }
