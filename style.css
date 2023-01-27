@@ -1,22 +1,22 @@
 /* CSS for logdanger class */
 .logdanger {
-    color: red;
+color: red;
 }
 
 /* CSS for loggood class */
 .loggood {
-    color: green;
+color: green;
 }
 
 /* CSS for loginfo class */
 .loginfo {
-    color: blue;
-/respect the spacing of the log file please
+color: blue;
 }
+/* respect the format of the original log file */ 
 .log-container {
-  white-space: pre-wrap;
+white-space: pre-wrap;
 }
-/Can I have a gray background please
-.logalizer-bg {
-  background-color: #gray;
+/*can we get a gray background please, light mode hurts */
+body {
+background-color: #e0e0e0;
 }
