@@ -20,7 +20,6 @@ input.addEventListener("change", function(event) {
   };
   reader.readAsText(file);
 });
-
 function highlightKeywords(logText, keywords, className) {
   // Iterate through the list of keywords
   for (let i = 0; i < keywords.length; i++) {
@@ -33,27 +32,18 @@ function highlightKeywords(logText, keywords, className) {
   return logText;
 }
 document.addEventListener("DOMContentLoaded", function() {
-  convertTimestampsOnHover();
-});
-let file = document.getElementById("file-upload").files[0];
-let reader = new FileReader();
-reader.onload = function() {
-  let logText = reader.result;
-  logText = convertTimestamps(logText);
-  document.getElementById("logs").innerHTML = logText;
-  convertTimestampsOnHover();
-};
-reader.readAsText(file);
-document.getElementById("file-upload").addEventListener("change", function() {
-  let file = this.files[0];
-  let reader = new FileReader();
-  reader.onload = function() {
-    let logText = reader.result;
-    logText = convertTimestamps(logText);
-    document.getElementById("logs").innerHTML = logText;
-    convertTimestampsOnHover();
-  };
-  reader.readAsText(file);
+  let fileUpload = document.getElementById("file-upload");
+  fileUpload.addEventListener("change", function() {
+    let file = this.files[0];
+    let reader = new FileReader();
+    reader.onload = function() {
+      let logText = reader.result;
+      logText = convertTimestamps(logText);
+      document.getElementById("logs").innerHTML = logText;
+      convertTimestampsOnHover();
+    };
+    reader.readAsText(file);
+  });
 });
 function convertTimestamps(logText) {
   // Create a regular expression to match timestamps in the format "YYYY-MM-DD HH:mm:ss UTC"
