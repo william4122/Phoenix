@@ -32,3 +32,24 @@ function highlightKeywords(logText, keywords, className) {
   }
   return logText;
 }
+function convertTimestamps(logText) {
+  // Create a regular expression to match timestamps in the format "YYYY-MM-DD HH:mm:ss UTC"
+  let regex = /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC/g;
+  // Replace all occurrences of the timestamp with a span element with the "timestamp" class
+  return logText.replace(regex, `<span class="timestamp">$&</span>`);
+}
+function convertTimestampsOnHover() {
+  let timestampElements = document.getElementsByClassName("timestamp");
+  for (let i = 0; i < timestampElements.length; i++) {
+    let timestampElement = timestampElements[i];
+    timestampElement.onmouseover = function() {
+      let utcTimestamp = timestampElement.textContent;
+      let localTimestamp = new Date(utcTimestamp);
+      localTimestamp = localTimestamp.toLocaleString();
+      timestampElement.textContent = localTimestamp;
+    }
+    timestampElement.onmouseout = function() {
+      timestampElement.textContent = utcTimestamp;
+    }
+  }
+}
