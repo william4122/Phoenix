@@ -1,16 +1,16 @@
 /* CSS for logdanger class */
 .logdanger {
-color: red;
+color: #920000;
 }
 
 /* CSS for loggood class */
 .loggood {
-color: green;
+color: #2fe42f;
 }
 
 /* CSS for loginfo class */
 .loginfo {
-color: blue;
+color: #1e1ed8;
 }
 /* respect the format of the original log file */ 
 .log-container {
@@ -18,5 +18,5 @@ white-space: pre-wrap;
 }
 /*can we get a gray background please, light mode hurts */
 body {
-background-color: #404040;
+background-color: #404040bd;
 }
