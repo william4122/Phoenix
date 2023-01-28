@@ -43,7 +43,6 @@ reader.onload = function() {
   document.getElementById("logs").innerHTML = logText;
   convertTimestampsOnHover();
 };
-reader.readAsText(file);
 document.getElementById("file-upload").addEventListener("change", function() {
   let file = this.files[0];
   let reader = new FileReader();
