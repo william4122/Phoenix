@@ -51,3 +51,4 @@ function convertTimestampsOnHover() {
 let timestampElements = document.getElementsByClassName("timestamp");
 // Iterate through the timestamp elements
 for (let i = 0; i < timestampElements.length; i++)
+}
