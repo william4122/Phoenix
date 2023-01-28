@@ -81,13 +81,13 @@ logsElement.innerHTML = logText;
 reader.readAsText(file);
 });
 function highlightKeywords(logText, keywords, className) {
-// Iterate through the list of keywords
-for (let i = 0; i < keywords.length; i++) {
-let keyword = keywords[i];
-// Create a regular expression with the keyword and the global flag
-let regex = new RegExp(keyword, "g");
-// Replace all occurrences of the keyword with a span element with the className class
-logText = logText.replace(regex, <span class="${className}">${keyword}</span>);
-}
-return logText;
+    // Iterate through the list of keywords
+    for (let i = 0; i < keywords.length; i++) {
+        let keyword = keywords[i];
+        // Create a regular expression with the keyword and the global flag
+        let regex = new RegExp(keyword, "g");
+        // Replace all occurrences of the keyword with a span element with the className class
+        logText = logText.replace(regex, `<span class="${className}">${keyword}</span>`);
+    }
+    return logText;
 }
