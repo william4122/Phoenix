@@ -45,10 +45,17 @@ let regex = /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC/g;
 return logText.replace(regex, `<span class="timestamp">$&</span>`);
 }
 
-// This function adds hover functionality to the timestamps
 function convertTimestampsOnHover() {
-// Get all elements with the "timestamp" class
-let timestampElements = document.getElementsByClassName("timestamp");
-// Iterate through the timestamp elements
-for (let i = 0; i < timestampElements.length; i++)
+  // Get all elements with the "timestamp" class
+  let timestampElements = document.getElementsByClassName("timestamp");
+  // Iterate through the timestamp elements
+  for (let i = 0; i < timestampElements.length; i++) {
+    // Add an event listener to each element to change its style when it is hovered over
+    timestampElements[i].addEventListener("mouseover", function() {
+      this.style.backgroundColor = "lightgray";
+    });
+    timestampElements[i].addEventListener("mouseout", function() {
+      this.style.backgroundColor = "";
+    });
+  }
 }
