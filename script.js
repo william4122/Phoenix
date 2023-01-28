@@ -42,7 +42,7 @@ function convertTimestamps(logText) {
 // Create a regular expression to match timestamps in the format "YYYY-MM-DD HH:mm:ss UTC"
 let regex = /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC/g;
 // Replace all occurrences of the timestamp with a span element with the "timestamp" class
-return logText.replace(regex, <span class="timestamp">$&</span>);
+return logText.replace(regex, `<span class="timestamp">$&</span>`);
 }
 
 // This function adds hover functionality to the timestamps
