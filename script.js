@@ -1,70 +1,78 @@
-// Add event listener for dAV log file input
-document.getElementById("file-upload-dav").addEventListener("change", function(event) {
-  processFile(event, 'dav-logs');
-});
-
-// Add event listener for dEDR log file input
-document.getElementById("file-upload-dedr").addEventListener("change", function(event) {
-  processFile(event, 'dedr-logs');
-});
-
-function processFile(event, logContainerId) {
+let input = document.getElementById("file-upload");
+input.addEventListener("change", function(event) {
   let file = event.target.files[0];
   let reader = new FileReader();
   reader.onload = function(event) {
     let logText = event.target.result;
-    // Process log text (highlight keywords, convert timestamps, etc.)
-    logText = processLogText(logText); // Implement this function as needed
-    document.getElementById(logContainerId).innerHTML = logText;
+    // Create a list of keywords for each class
+    let logDangerKeywords = ["ERR", "Could not fetch jobs: Invalid server response: 404", "fail", "Service stop signal received.", "Cannot save RTS data: unable to open database file", "Received stop signal from service controller", "Cannot finish fetching user accounts:"];
+    let logGoodKeywords = ["success", "Results sent, scan is complete", "completed", "Agent has started", "Found matches!", "Yara scan completed." ];
+    let logInfoKeywords = ["INF", "Waiting for remote API to approve upload", "status", "Starting as windows service"];
+
+    // Apply the highlightKeywords function to each keyword list
+    logText = highlightKeywords(logText, logDangerKeywords, "logdanger");
+    logText = highlightKeywords(logText, logGoodKeywords, "loggood");
+    logText = highlightKeywords(logText, logInfoKeywords, "loginfo");
+
+    // Display the log file with the keywords highlighted in the appropriate class
+    let logsElement = document.getElementById("logs");
+    logsElement.innerHTML = logText;
   };
   reader.readAsText(file);
-}
+});
 
-function processLogText(logText) {
-  // Implement the logic for processing log text (highlighting, timestamp conversion, etc.)
+function highlightKeywords(logText, keywords, className) {
+  // Iterate through the list of keywords
+  for (let i = 0; i < keywords.length; i++) {
+    let keyword = keywords[i];
+    // Create a regular expression with the keyword and the global flag
+    let regex = new RegExp(keyword, "g");
+    // Replace all occurrences of the keyword with a span element with the className class
+    logText = logText.replace(regex, `<span class="${className}">${keyword}</span>`);
+  }
   return logText;
 }
-
-// Other functions (highlightKeywords, convertTimestamps, convertTimestampsOnHover, etc.)
-function processLogText(logText) {
-  // Split the log text into lines
-  const lines = logText.split("\n");
-
-  // Define mappings between log level labels and CSS classes
-  const logLevelMappings = {
-    "[INF]": "loginfo",
-    "[ERR]": "logdanger",
-    // Add other mappings as needed
+document.addEventListener("DOMContentLoaded", function() {
+  convertTimestampsOnHover();
+});
+let file = document.getElementById("file-upload").files[0];
+let reader = new FileReader();
+reader.onload = function() {
+  let logText = reader.result;
+  logText = convertTimestamps(logText);
+  document.getElementById("logs").innerHTML = logText;
+  convertTimestampsOnHover();
+};
+reader.readAsText(file);
+document.getElementById("file-upload").addEventListener("change", function() {
+  let file = this.files[0];
+  let reader = new FileReader();
+  reader.onload = function() {
+    let logText = reader.result;
+    logText = convertTimestamps(logText);
+    document.getElementById("logs").innerHTML = logText;
+    convertTimestampsOnHover();
   };
-
-  // Process each line and apply the appropriate class and timestamp conversion
-  const processedLines = lines.map(line => {
-    let processedLine = line;
-
-    // Apply log level class
-    for (const [label, className] of Object.entries(logLevelMappings)) {
-      if (processedLine.includes(label)) {
-        processedLine = `<span class="${className}">${processedLine}</span>`;
-        break; // Stop checking for other log levels if a match is found
-      }
-    }
-
-    // Apply timestamp conversion
-    processedLine = convertTimestamps(processedLine);
-
-    return processedLine;
-  });
-
-  // Join the processed lines back into a single string
-  return processedLines.join("\n");
-}
-
+  reader.readAsText(file);
+});
 function convertTimestamps(logText) {
   // Create a regular expression to match timestamps in the format "YYYY-MM-DD HH:mm:ss UTC"
   let regex = /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC/g;
-  
   // Replace all occurrences of the timestamp with a span element with the "timestamp" class
-  return logText.replace(regex, match => `<span class="timestamp">${match}</span>`);
+  return logText.replace(regex, `<span class="timestamp">$&</span>`);
 }
-
-// Continue with the rest of your code...
+function convertTimestampsOnHover() {
+  let timestampElements = document.getElementsByClassName("timestamp");
+  for (let i = 0; i < timestampElements.length; i++) {
+    let timestampElement = timestampElements[i];
+    timestampElement.onmouseover = function() {
+      let utcTimestamp = timestampElement.textContent;
+      let localTimestamp = new Date(utcTimestamp);
+      localTimestamp = localTimestamp.toLocaleString();
+      timestampElement.textContent = localTimestamp;
+    }
+    timestampElement.onmouseout = function() {
+      timestampElement.textContent = utcTimestamp;
+    }
+  }
+}
